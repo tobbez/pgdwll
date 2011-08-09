@@ -8,13 +8,13 @@ function return_error($errmsg) {
 $API_METHODS = array();
 
 /* args: `wanted` (optional, default 10) */
-$API_METHODS['retrieve'] = function($args) {
+$API_METHODS['/retrieve'] = function($args) {
 };
 /* args: `text` (required) */
-$API_METHODS['add'] = function($args) {
+$API_METHODS['/add'] = function($args) {
 };
 /* list methods */
-$API_METHODS[''] = function($args) {
+$API_METHODS['/'] = function($args) {
   global $API_METHODS;
 
   $methods = array_keys($API_METHODS);
