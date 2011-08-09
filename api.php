@@ -41,7 +41,7 @@ $API_METHODS['/'] = function($args) {
 };
 
 if (array_key_exists($_GET['method'], $API_METHODS)) {
-  $API_METHODS[$_GET['method']](json_decode($_POST, TRUE));
+  $API_METHODS[$_GET['method']](json_decode(file_get_contents("php://input"), TRUE));
 } else {
   return_error("No such API method");
 }
