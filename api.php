@@ -13,6 +13,13 @@ $API_METHODS['retrieve'] = function($args) {
 /* args: `text` (required) */
 $API_METHODS['add'] = function($args) {
 };
+/* list methods */
+$API_METHODS[''] = function($args) {
+  $methods = array_keys($API_METHODS);
+  $result = array('status' => 'success', 'result' => $methods);
+
+  echo json_encode($result);
+};
 
 if (array_key_exists($_GET['method'], $API_METHODS)) {
   $API_METHODS[$_GET['method']]($_POST);
