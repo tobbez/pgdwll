@@ -9,6 +9,23 @@ $API_METHODS = array();
 
 /* args: `wanted` (optional, default 10) */
 $API_METHODS['/retrieve'] = function($args) {
+  $wanted = 10;
+  if (array_key_exists ('wanted', $args)) {
+    $wanted = $args['wanted'];
+  }
+
+  $result = array();
+  try {
+    $dbconn = new PDO("mysql:" . $SERVER['DB_HOST'] . ";dbname=" . $SERVER['DB_NAME'], $SERVER['DB_USER'], $SERVER['DB_PASSWORD']);
+    $sql = "SELECT * FROM messages LIMIT " . $dbconn->quote($wanted) . ";";
+    foreach($dbconn->query($sql) as $row) {
+      $result[] = $row;
+    }
+  } catch (PDOException $e) {
+    return_error($e->getMessage());
+  }
+
+  return json_encode($result);
 };
 /* args: `text` (required) */
 $API_METHODS['/add'] = function($args) {
