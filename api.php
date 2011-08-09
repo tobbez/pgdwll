@@ -16,7 +16,7 @@ $API_METHODS['/retrieve'] = function($args) {
 
   $result = array();
   try {
-    $dbconn = new PDO("mysql:" . $SERVER['DB_HOST'] . ";dbname=" . $SERVER['DB_NAME'], $SERVER['DB_USER'], $SERVER['DB_PASSWORD']);
+    $dbconn = new PDO("mysql:" . $_SERVER['DB_HOST'] . ";dbname=" . $_SERVER['DB_NAME'], $_SERVER['DB_USER'], $_SERVER['DB_PASSWORD']);
     $sql = "SELECT * FROM messages LIMIT " . $dbconn->quote($wanted) . ";";
     foreach($dbconn->query($sql) as $row) {
       $result[] = $row;
