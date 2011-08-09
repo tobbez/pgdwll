@@ -29,8 +29,22 @@ $API_METHODS['/retrieve'] = function($args) {
 
   echo json_encode($result);
 };
-/* args: `text` (required) */
+/* args: `message` (required) */
 $API_METHODS['/add'] = function($args) {
+  if (!array_key_exists('message', $args)) {
+    return_error("No `message` specified");
+  }
+
+  try {
+    $dbconn = new PDO("mysql:" . $_SERVER['DB_HOST'] . ";dbname=" . $_SERVER['DB_NAME'] . ";unix_socket=" . $_SERVER['DB_SOCKET'], $_SERVER['DB_USER'], $_SERVER['DB_PASSWORD']);
+    $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO " . $_SERVER['DB_NAME'] . ".messages (message) VALUES (" . $dbconn->quote($args['message']) . ");";
+    $dbconn->exec($sql);
+  } catch (PDOException $e) {
+    return_error($e->getMessage());
+  }
+
+  echo json_encode(array('status' => 'success'));
 };
 /* list methods */
 $API_METHODS['/'] = function($args) {
