@@ -1,3 +1,3 @@
 url_rewrites:
-        - ^/api(/.*)/?$ /api.php?method=$1
+        - ^/api(/[^/]*)/?$ /api.php?method=$1
 php_extensions: [pdo, pdo_mysql]
