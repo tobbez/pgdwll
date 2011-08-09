@@ -15,6 +15,8 @@ $API_METHODS['add'] = function($args) {
 };
 /* list methods */
 $API_METHODS[''] = function($args) {
+  global $API_METHODS;
+
   $methods = array_keys($API_METHODS);
   $result = array('status' => 'success', 'result' => $methods);
 
