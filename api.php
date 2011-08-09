@@ -20,14 +20,14 @@ $API_METHODS['/retrieve'] = function($args) {
     $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = "SELECT * FROM " . $_SERVER['DB_NAME'] . ".messages LIMIT " . $wanted . ";";
-    foreach($dbconn->query($sql) as $row) {
+    foreach($dbconn->query($sql, PDO::FETCH_ASSOC) as $row) {
       $result[] = $row;
     }
   } catch (PDOException $e) {
     return_error($e->getMessage());
   }
 
-  return json_encode($result);
+  echo json_encode($result);
 };
 /* args: `text` (required) */
 $API_METHODS['/add'] = function($args) {
