@@ -27,7 +27,7 @@ $API_METHODS['/retrieve'] = function($args) {
     return_error($e->getMessage());
   }
 
-  echo json_encode($result);
+  echo json_encode(array('status'=> 'success', 'result' => $result));
 };
 /* args: `message` (required) */
 $API_METHODS['/add'] = function($args) {
