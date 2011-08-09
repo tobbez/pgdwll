@@ -10,8 +10,8 @@ $API_METHODS = array();
 /* args: `wanted` (optional, default 10) */
 $API_METHODS['/retrieve'] = function($args) {
   $wanted = 10;
-  if (array_key_exists ('wanted', $args)) {
-    $wanted = $args['wanted'];
+  if (array_key_exists ('wanted', $args) && is_numeric($args['wanted'])) {
+    $wanted = intval($args['wanted']);
   }
 
   $result = array();
@@ -19,7 +19,7 @@ $API_METHODS['/retrieve'] = function($args) {
     $dbconn = new PDO("mysql:" . $_SERVER['DB_HOST'] . ";dbname=" . $_SERVER['DB_NAME'] . ";unix_socket=" . $_SERVER['DB_SOCKET'], $_SERVER['DB_USER'], $_SERVER['DB_PASSWORD']);
     $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT * FROM " . $_SERVER['DB_NAME'] . ".messages LIMIT " . $dbconn->quote($wanted) . ";";
+    $sql = "SELECT * FROM " . $_SERVER['DB_NAME'] . ".messages LIMIT " . $wanted . ";";
     foreach($dbconn->query($sql) as $row) {
       $result[] = $row;
     }
